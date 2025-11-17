@@ -55,9 +55,38 @@
 
         <link href="./index.css" rel="stylesheet" />
         <script>
+            function initTheme() {
+                const prefersDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)",
+                ).matches;
+                const html = document.querySelector("html");
+
+                if (prefersDark) {
+                    html.classList.add("dark");
+                } else {
+                    html.classList.remove("dark");
+                }
+            }
+
+            function watchSystemTheme() {
+                window
+                    .matchMedia("(prefers-color-scheme: dark)")
+                    .addEventListener("change", (e) => {
+                        const html = document.querySelector("html");
+                        if (e.matches) {
+                            html.classList.add("dark");
+                        } else {
+                            html.classList.remove("dark");
+                        }
+                    });
+            }
+
             function toggleTheme() {
                 document.querySelector("html").classList.toggle("dark");
             }
+
+            initTheme();
+            watchSystemTheme();
         </script>
     </head>
 
